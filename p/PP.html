@@ -1,39 +1,84 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Video de Fondo Centrado</title>
+  <title>Botón LED sobre video</title>
 
   <style>
-    body {
+    /* Fondo de pantalla con video */
+    body, html {
       margin: 0;
       padding: 0;
-      background-color: black;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Arial', sans-serif;
     }
 
     #videoFondo {
-      width: 90%;
-      max-width: 1000px;
-      border-radius: 20px;
-      margin: 20px;
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+      position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    /* Contenedor centrado */
+    .contenido-centro {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    /* Botón LED con letras y borde brillantes */
+    .btn-led {
+      padding: 15px 30px;
+      font-size: 1.2em;
+      font-weight: bold;
+      border: 2px solid white;
+      border-radius: 10px;
+      background-color: transparent;
+      color: white;
+      text-shadow: 0 0 10px white, 0 0 20px white;
+      box-shadow: 0 0 10px white;
+      cursor: pointer;
+      transition: all 0.5s ease;
+      text-decoration: none;
+    }
+
+    /* Hover: brillo completo tipo LED arcoíris */
+    .btn-led:hover {
+      background: linear-gradient(90deg, red, orange, yellow, green, blue, violet);
+      background-size: 600% 600%;
+      animation: ledGlow 4s linear infinite;
+      box-shadow: 0 0 20px white, 0 0 40px violet, 0 0 60px blue;
+      color: white;
+      text-shadow: 0 0 20px white, 0 0 30px white;
+    }
+
+    @keyframes ledGlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
   </style>
 </head>
 <body>
 
+  <!-- Video de fondo -->
   <video autoplay muted loop id="videoFondo">
-    <source src="../hamburguesas/FV.mp4" type="video/mp4" />
+    <source src="../video/FV.mp4" type="video/mp4" />
     Tu navegador no soporta video HTML5.
   </video>
 
-  <a href="../p/MP.html" class="btn btn-primary">Ir a otra página</a>
-
+  <!-- Botón centrado -->
+  <div class="contenido-centro">
+    <a href="../p/MN.html" class="btn-led">Ver Menú</a>
+  </div>
 
 </body>
 </html>
