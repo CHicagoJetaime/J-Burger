@@ -1,17 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>J'Burger</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Video de Fondo Centrado</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    #videoFondo {
+      width: 90%;
+      max-width: 1000px;
+      border-radius: 20px;
+      margin: 20px;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+    }
+  </style>
 </head>
 <body>
 
   <video autoplay muted loop id="videoFondo">
-  <source src="../video/FV.mp4" type="video/mp4">
-  Tu navegador no soporta video HTML5.
-</video>
+    <source src="../hamburguesas/FV.mp4" type="video/mp4" />
+    Tu navegador no soporta video HTML5.
+  </video>
 
-  
+  <a href="../p/MP.html" class="btn btn-primary">Ir a otra página</a>
+
+
 </body>
 </html>
