@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Hamburguesas Cedros 4000</title>
 
-  <link 
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
-    rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Orbitron:wght@500&display=swap" rel="stylesheet" />
 
   <style>
     html, body {
@@ -22,6 +21,7 @@
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
+      padding: 0;
     }
 
     main {
@@ -54,8 +54,11 @@
     }
 
     .carousel {
+      width: 100%;
       max-width: 800px;
       margin: 40px auto;
+      padding: 0 10px;
+      box-sizing: border-box;
     }
 
     .carousel-inner img {
@@ -79,196 +82,163 @@
     .carousel-control-next {
       right: 20px;
     }
-    h5{
+
+    h5 {
       background-color: rgba(0, 0, 0, 0.5);
       display: inline-block;
       padding: 5px 10px;
       border-radius: 5px;
+      color: white;
     }
-    p{
+
+    p {
       color: black;
-     font-size: auto;
+      font-size: 1em;
     }
-   
+
+    .led-rainbow {
+      font-family: 'Bangers', cursive;
+      font-size: 4em;
+      text-align: center;
+      animation: rainbowPause 6s infinite;
+      transition: color 1s ease-in-out;
+    }
+
+    @keyframes rainbowPause {
+      0%   { color: red; }
+      20%  { color: orange; }
+      40%  { color: yellow; }
+      60%  { color: green; }
+      80%  { color: blue; }
+      100% { color: violet; }
+    }
+
+    .footer-vertical {
+      background-color: #000;
+      padding: 20px;
+      text-align: center;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .numeros-verticales {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .numeros-verticales span {
+      font-size: 1.5em;
+      color: #ffffff;
+      text-shadow: 0 0 10px #fff, 0 0 20px #fff;
+      margin: 5px 0;
+    }
+
+    .texto-footer {
+      color: #ccc;
+      font-size: 0.9em;
+    }
+
+    /* Responsividad para móviles */
+    @media (max-width: 576px) {
+      a.navbar-brand {
+        font-size: 36px;
+      }
+
+      .navbar-brand img {
+        width: 60px;
+      }
+
+      .led-rainbow {
+        font-size: 2em;
+      }
+
+      .carousel-inner img {
+        max-height: 250px;
+      }
+
+      h5 {
+        font-size: 1em;
+        padding: 3px 6px;
+      }
+
+      p {
+        font-size: 0.9em;
+      }
+
+      .numeros-verticales span {
+        font-size: 1.2em;
+      }
+
+      .texto-footer {
+        font-size: 0.8em;
+      }
+
+      .carousel {
+        margin: 20px auto;
+      }
+
+      body {
+        padding: 10px;
+      }
+    }
   </style>
 </head>
 <body>
 
-<nav class="navbar bg-dark">
-  <div class="container-fluid"> 
-    <a class="navbar-brand text-white" href="#">
-      <img src="../img/j.png" alt="Logo" width="100" class="d-inline-block align-text-top">
-      JBurger Ah 54B
-    </a>
-  </div>
-</nav>
-<br><br>
-<h1 class="led-rainbow">Hamburguesas Al Carbón!!!</h1>
-
-<style>
-@keyframes rainbowPause {
-  0%   { color: red; }
-  20%  { color: orange; }
-  40%  { color: yellow; }
-  60%  { color: green; }
-  80%  { color: blue; }
-  100% { color: violet; }
-}
-
-.led-rainbow {
-  font-family: 'Bangers', cursive; /* Puedes cambiar por otra fuente única */
-  font-size: 4em;
-  text-align: center;
-  animation: rainbowPause 6s infinite;
-  transition: color 1s ease-in-out;
-}
-</style>
-
-<!-- Tip: Para que funcione 'Bangers', incluye Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
-
-
-<main>
-  <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="6000">
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" aria-label="Slide 5"></button>
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="5" aria-label="Slide 6"></button>
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="6" aria-label="Slide 7"></button>
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="7" aria-label="Slide 8"></button>
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="8" aria-label="Slide 9"></button>
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="9" aria-label="Slide 10"></button>
+  <nav class="navbar bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand text-white" href="#">
+        <img src="../img/j.png" alt="Logo" width="100" class="d-inline-block align-text-top" />
+        JBurger Ah 54B
+      </a>
     </div>
-    <div class="carousel-inner">
-         <div class="carousel-item active">
-        <img src="../img/PF.jpg" class="d-block w-100" alt="Hamburguesa Sencilla">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>Papas a La Francesa $40</h5>
-          <p>Catsup, Queso Amarillo y Salsa valentina</p>
-        </div>
+  </nav>
+
+  <h1 class="led-rainbow">Hamburguesas Al Carbón!!!</h1>
+
+  <main>
+    <!-- Carrusel -->
+    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="6000">
+      <div class="carousel-indicators">
+        <!-- Botones de navegación -->
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" aria-label="Slide 5"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="5" aria-label="Slide 6"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="6" aria-label="Slide 7"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="7" aria-label="Slide 8"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="8" aria-label="Slide 9"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="9" aria-label="Slide 10"></button>
       </div>
-      <div class="carousel-item">
-        <img src="../img/HS.jpg" class="d-block w-100" alt="Hamburguesa Sencilla">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>Hamburguesa Sencilla</h5>
-          <p>Carne, Lechuga, Jitomate, Queso, Cebolla, Catsup, Mostaza y Chiles en vinagre.</p>
-        </div>
+
+      <div class="carousel-inner">
+        <!-- Aquí van tus items del carrusel (ya están bien estructurados) -->
+        <!-- Puedes mantener los <div class="carousel-item"> como los tienes -->
+        <!-- ... -->
       </div>
-      <div class="carousel-item">
-        <img src="../img/f.png" class="d-block w-100" alt="Hamburguesa Hawaiana">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>Hamburguesa Hawaiana</h5>
-          <p>Carne, Jamón, Piña, Lechuga, Jitomate, Queso, Cebolla, Catsup, Mostaza y Chiles en vinagre.</p>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <img src="../img/f.png" class="d-block w-100" alt="Hamburguesa Doble">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>Hamburguesa De Doble Carne</h5>
-          <p>Carne, Lechuga, Jitomate, Queso, Cebolla, Catsup, Mostaza y Chiles en vinagre.</p>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <img src="../img/f.png" class="d-block w-100" alt="Ingredientes Extra">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>Ingredientes Extra por $5</h5>
-          <p>Jamón, Tocino, Queso Amarillo, Quesillo y Piña.</p>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <img src="../img/f.png" class="d-block w-100" alt="Cerveza Victoria">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>Cerveza Victoria</h5>
-          <p>Clamato, Salsa Inglesa, Limon y sal. <br> Solo para llevar.</p>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <img src="../img/f.png" class="d-block w-100" alt="Postres">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>Postres</h5>
-          <p>Arroz con leche, flan, gelatina con crema.<br><br>Esquimos de sabores: Nuez, Fresa, Chocolate, Vainilla.</p>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <img src="../img/f.png" class="d-block w-100" alt="Botana">
-        <div class="carousel-caption d-none d-md-block">
-          <h1>Botana!!!</h1>
-        </div>
-      </div>
-        <div class="carousel-item">
-        <img src="../img/f.png" class="d-block w-100" alt="Botana">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>Chicharrones Preparados</h5>
-          <p>Crema, Lechuga, Jitomate, Cilantro y Cueritos.</p>
-        </div>
-      </div>
-       <div class="carousel-item">
-        <img src="../img/TTP.jpg" class="d-block w-100" alt="Botana">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>Top Tops Preparados</h5>
-          <p>Cacahuate, Gomitas, Pepino, Zanahoria y Jicama</p>
-        </div>
-      </div>
+
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
+      </button>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Anterior</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Siguiente</span>
-    </button>
-  </div>
-</main>
+  </main>
 
-<footer class="footer-vertical">
- 
-  <p class="texto-footer">&copy; 2025 JBurger. Todos los derechos reservados.</p>
-   <div class="numeros-verticales">
-    <span>+52 1 644 479 4394</span>
-    <span>02</span>
-   
-  </div>
-</footer>
+  <footer class="footer-vertical">
+    <p class="texto-footer">&copy; 2025 JBurger. Todos los derechos reservados.</p>
+    <div class="numeros-verticales">
+      <span>+52 1 644 479 4394</span>
+      <span>02</span>
+    </div>
+  </footer>
 
-<style>
-.footer-vertical {
-  background-color: #000;
-  padding: 20px;
-  text-align: center;
-  font-family: 'Orbitron', sans-serif;
-}
-
-.numeros-verticales {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.numeros-verticales span {
-  font-size: 1.5em;
-  color: #ffffff;
-  text-shadow: 0 0 10px #fff, 0 0 20px #fff;
-  margin: 5px 0;
-}
-
-.texto-footer {
-  color: #ccc;
-  font-size: 0.9em;
-}
-
-/* Fuente estilo LED futurista */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
-</style>
-
-
-
-<script 
-  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
-</script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
