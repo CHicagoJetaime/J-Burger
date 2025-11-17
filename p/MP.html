@@ -9,6 +9,34 @@
 <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Orbitron:wght@500&display=swap" rel="stylesheet" />
 
 <style>
+     body {
+      background-color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 4rem;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
+      background-size: 400%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: ledRainbow 6s ease-in-out infinite;
+    }
+
+    @keyframes ledRainbow {
+      0%, 100% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+    }
+
 html, body {
     height: 100%;
     margin: 0;
@@ -31,6 +59,7 @@ body {
 
 
 main { flex: 1; }
+     margin: auto;
 
 a.navbar-brand {
     font-size: 80px;
