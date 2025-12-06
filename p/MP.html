@@ -9,16 +9,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Orbitron:wght@500&display=swap" rel="stylesheet" />
 
   <style>
-    body {
-      background: #111;
-      color: #fff;
-      overflow-x: hidden; /* ✅ SOLO lateral */
-    }
-
+    /* ===========================
+       Estilos consolidados
+       =========================== */
     html, body {
       height: 100%;
       margin: 0;
       padding: 0;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden; /* evita scroll lateral pero permite vertical */
+      background-color: #111;
+      color: #fff;
+      font-family: Arial, sans-serif;
     }
 
     body {
@@ -27,39 +30,42 @@
       background-repeat: no-repeat;
       background-position: center;
       background-attachment: fixed;
-      padding-top: 160px;
+      padding-top: 160px; /* espacio para navbar fija */
     }
 
-    /* ===== TITULO HAMBURGUESAS AL CARBÓN ===== */
+    /* Título quemado con humo */
     .burn-title {
       display: flex;
       justify-content: center;
       margin-top: 40px;
       font-size: 3rem;
       font-weight: bold;
+      color: #fff;
       position: relative;
+      z-index: 2;
       flex-wrap: wrap;
+      gap: 2px;
     }
 
     .burn-title span {
       position: relative;
-      margin: 0 5px;
+      margin: 0 4px;
       text-shadow:
         0 0 10px #ff4500,
         0 0 20px #ff6347,
         0 0 40px #ff0000;
+      line-height: 1;
+      display: inline-block;
     }
 
+    /* humo */
     .smoke {
       position: absolute;
-      top: -20px;
-      width: 40px;
-      height: 40px;
-      background: radial-gradient(circle, rgba(255,255,255,0.4) 10%, transparent 70%);
+      background: radial-gradient(circle, rgba(255,255,255,0.45) 10%, transparent 70%);
       border-radius: 50%;
       opacity: 0.6;
-      animation: riseSide 5s forwards ease-in-out;
       pointer-events: none;
+      will-change: transform, opacity;
     }
 
     @keyframes riseSide {
@@ -68,56 +74,96 @@
       100% { transform: translate(60px, -120px) scale(1.5); opacity: 0; }
     }
 
-    /* ===== ACCORDION ===== */
+    /* Botones del acordeón en rojo/naranja fosforescente */
     .accordion-button {
       background-color: #222;
       color: #ff6347;
-      text-shadow: 0 0 5px #ff4500;
+      text-shadow: 0 0 5px #ff4500, 0 0 10px #ff6347;
+      transition: all 0.3s ease;
+    }
+
+    .accordion-button.collapsed {
+      color: #aaa;
+      text-shadow: none;
     }
 
     .accordion-button:not(.collapsed) {
       background-color: #000;
-      box-shadow: 0 0 20px #ff4500;
+      color: #ff6347;
+      box-shadow: 0 0 20px #ff4500, 0 0 40px #ff6347;
     }
 
+    /* Texto interno blanco fosforescente */
     .accordion-body {
       background-color: #111;
       color: #fff;
       font-weight: bold;
-      text-shadow: 0 0 10px #fff;
+      text-shadow:
+        0 0 5px #fff,
+        0 0 10px #fff,
+        0 0 20px #fff,
+        0 0 40px #fff;
+      border-left: 2px solid #ff4500;
+      border-right: 2px solid #ff4500;
     }
 
-    /* ===== TITULOS NUEVOS ===== */
-    .title-botanas {
+    /* Título led rainbow */
+    h1.led {
       text-align: center;
       font-family: 'Orbitron', sans-serif;
-      font-size: 3.5rem;
-      margin: 60px 0 30px;
-      letter-spacing: 6px;
-      color: #fff;
-      text-shadow:
-        0 0 5px #00fff7,
-        0 0 10px #00fff7,
-        0 0 20px #00ffd5,
-        0 0 40px #00ffa2;
+      font-size: 4rem;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
+      background-size: 400%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: ledRainbow 6s ease-in-out infinite;
+      margin-top: 30px;
     }
 
-    .title-postres {
-      text-align: center;
-      font-family: 'Bangers', cursive;
-      font-size: 3.2rem;
-      margin: 60px 0 30px;
-      color: #ffd6e8;
+    @keyframes ledRainbow {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    a.navbar-brand {
+      font-size: 80px;
+      font-family: 'Arial Black', sans-serif;
+      text-transform: uppercase;
+      animation: rainbowGlow 2s infinite linear;
+      color: #fff;
       text-shadow:
-        0 0 8px #ff77b7,
-        0 0 16px #ffaad5,
-        0 0 28px #ffd6e8;
+        0 0 5px #fff, 0 0 10px #ff00ff, 0 0 20px #00ffff,
+        0 0 30px #ffff00, 0 0 40px #ff0000, 0 0 50px #00ff00,
+        0 0 60px #0000ff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    @keyframes rainbowGlow {
+      0% { text-shadow: 0 0 10px red; }
+      20% { text-shadow: 0 0 10px orange; }
+      40% { text-shadow: 0 0 10px yellow; }
+      60% { text-shadow: 0 0 10px green; }
+      80% { text-shadow: 0 0 10px blue; }
+      100% { text-shadow: 0 0 10px violet; }
+    }
+
+    .navbar-brand img {
+      vertical-align: middle;
+      margin-right: 8px;
+      width: 100px;
+      height: auto;
     }
 
     .carousel {
       width: 100%;
-      max-width: 800px;
+      max-width: 900px;
       margin: 40px auto;
+      padding: 0 10px;
+      box-sizing: border-box;
+      z-index: 1;
     }
 
     .carousel-inner img {
@@ -126,40 +172,115 @@
       border-radius: 10px;
     }
 
+    h5 {
+      background-color: rgba(0,0,0,0.5);
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 5px;
+      color: white;
+    }
+
     .footer-vertical {
       background-color: #000;
       padding: 20px;
       text-align: center;
       font-family: 'Orbitron', sans-serif;
+      margin-top: 40px;
+    }
+
+    .numeros-verticales {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .numeros-verticales span {
+      font-size: 1.5em;
+      color: #ffffff;
+      text-shadow: 0 0 10px #fff, 0 0 20px #fff;
+      margin: 5px 0;
+    }
+
+    .texto-footer {
+      color: #ccc;
+      font-size: 0.9em;
+    }
+
+    @media (max-width: 576px) {
+      a.navbar-brand {
+        font-size: 36px;
+        display: flex;
+        align-items: center;
+      }
+
+      .navbar-brand img {
+        width: 60px;
+        height: auto;
+        margin-right: 10px;
+      }
+
+      .carousel-inner img {
+        max-height: 250px;
+      }
+
+      h1.led {
+        font-size: 2.2rem;
+      }
+
+      h5 {
+        font-size: 1em;
+        padding: 3px 6px;
+      }
+
+      .numeros-verticales span {
+        font-size: 1.2em;
+      }
+
+      .texto-footer {
+        font-size: 0.8em;
+      }
+
+      .carousel {
+        margin: 20px auto;
+      }
     }
   </style>
 </head>
 
 <body>
 
-<!-- NAVBAR ORIGINAL -->
+<!-- NAVBAR -->
 <nav class="navbar navbar-dark bg-dark fixed-top">
   <div class="container-fluid d-flex justify-content-between align-items-center">
-    <a class="navbar-brand text-white" href="#">
-      <img src="../img/J.png" alt="Logo" width="100">
+    <a class="navbar-brand text-white" href="#" style="display:flex; align-items:center;">
+      <img src="../img/J.png" alt="Logo" width="100" class="d-inline-block align-text-top" />
       JBurger Ah 54B
     </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
-      <span class="navbar-toggler-icon"></span>
-    </button>
 
-    <div class="offcanvas offcanvas-end text-bg-dark" id="offcanvasNavbar">
+    <div class="d-flex align-items-center">
+      <!-- Botón offcanvas -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Abrir menú">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+
+    <!-- Offcanvas (menú lateral) -->
+    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div class="offcanvas-header">
-        <h5>Menú</h5>
-        <button class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+        <h5 id="offcanvasNavbarLabel">Menú</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
       </div>
       <div class="offcanvas-body">
-        <ul class="navbar-nav">
-          <li><a class="nav-link active" href="#">Inicio</a></li>
-          <li><a class="nav-link" href="#">Menú</a></li>
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <li class="nav-item"><a class="nav-link active" href="#">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Menú</a></li>
+
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Más</a>
-            <ul class="dropdown-menu dropdown-menu-dark">
+            <a class="nav-link dropdown-toggle" href="#" id="offcanvasDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Más
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="offcanvasDropdown">
               <li><a class="dropdown-item" href="#">Promociones</a></li>
               <li><a class="dropdown-item" href="#">Ubicación</a></li>
               <li><hr class="dropdown-divider"></li>
@@ -172,81 +293,277 @@
   </div>
 </nav>
 
-<!-- ACCORDION -->
+<!-- ACORDEÓN -->
 <div class="container d-flex justify-content-center mt-5">
-  <div class="accordion w-50">
+  <div class="accordion w-50" id="accordionExample">
     <div class="accordion-item">
-      <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#c1">
-        Hamburguesa Clásica
-      </button>
-      <div id="c1" class="accordion-collapse collapse show">
+      <h2 class="accordion-header">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Hamburguesa Clásica
+        </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
         <div class="accordion-body">
           Pan suave, carne jugosa y queso derretido.
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Hamburguesa BBQ
+        </button>
+      </h2>
+      <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          Salsa barbacoa, cebolla caramelizada y tocino crujiente.
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          Hamburguesa al Carbón
+        </button>
+      </h2>
+      <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          Cocinada al carbón para un sabor ahumado único.
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- TITULO PRINCIPAL -->
+<!-- TITULO QUEMADO -->
 <div class="burn-title" id="burnTitle">
-  <span>🔥</span><span>H</span><span>A</span><span>M</span><span>B</span><span>U</span><span>R</span>
-  <span>G</span><span>U</span><span>E</span><span>S</span><span>A</span><span>S</span>
-  <span>&nbsp;</span><span>A</span><span>L</span>
-  <span>&nbsp;</span><span>C</span><span>A</span><span>R</span><span>B</span><span>Ó</span><span>N</span><span>🔥</span>
+  <span>🔥</span>
+  <span>H</span><span>A</span><span>M</span><span>B</span><span>U</span><span>R</span><span>G</span><span>U</span><span>E</span><span>S</span>
+  <span>A</span><span>S</span>
+  <span>&nbsp;</span>
+  <span>A</span><span>L</span>
+  <span>&nbsp;</span>
+  <span>C</span><span>A</span><span>R</span><span>B</span><span>Ó</span><span>N</span>
+  <span>🔥</span>
 </div>
 
-<!-- CARRUSEL HAMBURGUESAS -->
-<div id="carouselHamburguesas" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active"><img src="../img/HS.webp" class="d-block w-100"></div>
-    <div class="carousel-item"><img src="../img/HH.webp" class="d-block w-100"></div>
-    <div class="carousel-item"><img src="../img/HDC.webp" class="d-block w-100"></div>
+<!-- CARRUSEL 1: HAMBURGUESAS -->
+<main>
+  <div id="carouselHamburguesas" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="4000">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselHamburguesas" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselHamburguesas" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselHamburguesas" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      <button type="button" data-bs-target="#carouselHamburguesas" data-bs-slide-to="3" aria-label="Slide 4"></button>
+    </div>
+
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="../img/HS.webp" class="d-block w-100" alt="Hamburguesa sencilla">
+        <div class="carousel-caption">
+          <h5>Hamburguesa Sencilla</h5>
+          <p>Carne, Jamón, Piña, Queso...</p>
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <img src="../img/HH.webp" class="d-block w-100" alt="Hamburguesa hawaiana">
+        <div class="carousel-caption">
+          <h5>Hamburguesa Hawaiana</h5>
+          <p>Carne, Jamón, Piña, Queso...</p>
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <img src="../img/HDC.webp" class="d-block w-100" alt="Doble carne">
+        <div class="carousel-caption">
+          <h5>Doble Carne</h5>
+          <p>Carne extra, Lechuga, Queso...</p>
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <img src="../img/F.png" class="d-block w-100" alt="Promoción">
+        <div class="carousel-caption">
+          <h5>Promoción</h5>
+          <p>Carne extra, Lechuga, Queso...</p>
+        </div>
+      </div>
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselHamburguesas" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Anterior</span>
+    </button>
+
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselHamburguesas" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Siguiente</span>
+    </button>
   </div>
-</div>
+</main>
+<br>
 
-<!-- BOTANAS -->
-<h2 class="title-botanas">BOTANAS</h2>
-<div id="carouselBotanas" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active"><img src="../img/B.webp" class="d-block w-100"></div>
-    <div class="carousel-item"><img src="../img/B.webp" class="d-block w-100"></div>
+<!-- CARRUSEL 2: BOTANAS -->
+<h1 class="led">BOTANAS!!!</h1><br><br>
+<main>
+  <div id="carouselBotanas" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="4500">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselBotanas" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselBotanas" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    </div>
+
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="../img/B.webp" class="d-block w-100" alt="Chicharrones preparados">
+        <div class="carousel-caption">
+          <h5>Chicharrones Preparados</h5>
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <img src="../img/B.webp" class="d-block w-100" alt="Top tops preparados">
+        <div class="carousel-caption">
+          <h5>Top Tops Preparados</h5>
+        </div>
+      </div>
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselBotanas" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Anterior</span>
+    </button>
+
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselBotanas" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Siguiente</span>
+    </button>
   </div>
-</div>
+</main>
+<br>
 
-<!-- POSTRES -->
-<h2 class="title-postres">POSTRES</h2>
-<div id="carouselPostres" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active"><img src="../img/P.png" class="d-block w-100"></div>
+<!-- CARRUSEL 3: POSTRES -->
+<h1 class="led">POSTRES!!!</h1><br><br>
+<main>
+  <div id="carouselPostres" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="4250">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselPostres" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    </div>
+
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="../img/P.png" class="d-block w-100" alt="Postres">
+        <div class="carousel-caption">
+          <h5>Postres</h5>
+          <p>Arroz con leche, flan, gelatina...</p>
+        </div>
+      </div>
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselPostres" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Anterior</span>
+    </button>
+
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselPostres" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Siguiente</span>
+    </button>
   </div>
-</div>
+</main>
+<br>
 
+<!-- FOOTER -->
 <footer class="footer-vertical">
-  <p>&copy; 2025 JBurger</p>
+  <p class="texto-footer">&copy; 2025 JBurger. Todos los derechos reservados.</p>
+  <div class="numeros-verticales">
+    <span>+52 1 644 479 4394</span>
+    <span>02</span>
+  </div>
 </footer>
 
+<!-- SCRIPTS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-  const title = document.getElementById('burnTitle');
-  const letters = title.querySelectorAll('span');
+  // DOM ready
+  document.addEventListener('DOMContentLoaded', () => {
 
-  function createSmoke(letter) {
-    const smoke = document.createElement('div');
-    smoke.classList.add('smoke');
-    smoke.style.left = letter.offsetLeft + 'px';
-    smoke.style.top = letter.offsetTop - 30 + 'px';
-    title.appendChild(smoke);
-    setTimeout(() => smoke.remove(), 5000);
-  }
+    /* ===== HUMO DINÁMICO ===== */
+    const title = document.getElementById('burnTitle');
+    if (title) {
+      const letters = Array.from(title.querySelectorAll('span'));
 
-  setInterval(() => {
-    letters.forEach(letter => {
-      if (Math.random() > 0.6) createSmoke(letter);
+      function createSmoke(letter) {
+        const rectTitle = title.getBoundingClientRect();
+        const rectLetter = letter.getBoundingClientRect();
+
+        const smoke = document.createElement('div');
+        smoke.classList.add('smoke');
+
+        const size = Math.random() * 30 + 20;
+        smoke.style.width = `${size}px`;
+        smoke.style.height = `${size}px`;
+
+        const left = rectLetter.left - rectTitle.left + rectLetter.width / 2 - size / 2;
+        const top = rectLetter.top - rectTitle.top - size / 2;
+
+        smoke.style.left = `${left}px`;
+        smoke.style.top = `${top}px`;
+
+        const duration = 3 + Math.random() * 2;
+        smoke.style.animation = `riseSide ${duration}s forwards ease-in-out`;
+        smoke.style.opacity = '0.6';
+
+        title.appendChild(smoke);
+
+        setTimeout(() => {
+          if (smoke && smoke.parentNode) smoke.parentNode.removeChild(smoke);
+        }, (duration + 0.2) * 1000);
+      }
+
+      setInterval(() => {
+        letters.forEach(letter => {
+          if (Math.random() > 0.6) createSmoke(letter);
+        });
+      }, 400);
+    }
+
+    /* ===== ROTACIÓN AUTOMÁTICA DEL ACORDEÓN (no molestar interacción del usuario) ===== */
+    const items = document.querySelectorAll('.accordion-collapse');
+    let index = 0;
+    let lastAutoOpened = null;
+
+    if (items.length > 0) {
+      setInterval(() => {
+        const current = items[index];
+
+        if (!current.classList.contains('show')) {
+          if (lastAutoOpened && lastAutoOpened.classList.contains('show')) {
+            try {
+              new bootstrap.Collapse(lastAutoOpened, { toggle: false }).hide();
+            } catch (e) { /* no-op */ }
+          }
+
+          try {
+            new bootstrap.Collapse(current, { toggle: false }).show();
+            lastAutoOpened = current;
+          } catch (e) { /* no-op */ }
+        }
+
+        index = (index + 1) % items.length;
+      }, 5000);
+    }
+
+    // Si el usuario interactúa, cancelamos la "última automático" para no cerrarlo
+    document.querySelectorAll('.accordion-button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        lastAutoOpened = null;
+      });
     });
-  }, 500);
+  });
 </script>
-
 </body>
 </html>
