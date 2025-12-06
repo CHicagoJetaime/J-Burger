@@ -8,506 +8,221 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Orbitron:wght@500&display=swap" rel="stylesheet" />
 
-  <style>
-      body {
-      background: #111;
-      color: #fff;
-      overflow: hidden;
-    }
+<style>
+/* ===== RESET SCROLL ===== */
+html, body {
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* ✅ solo bloquea lateral */
+}
 
-    /* Título quemado con humo */
-    .burn-title {
-      display: flex;
-      justify-content: center;
-      margin-top: 40px;
-      font-size: 3rem;
-      font-weight: bold;
-      color: #fff;
-      position: relative;
-    }
+/* ===== BODY ===== */
+body {
+  background-image: url('../img/fondo.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  padding-top: 160px;
+  color: #fff;
+}
 
-    .burn-title span {
-      position: relative;
-      margin: 0 5px;
-      text-shadow: 
-        0 0 10px #ff4500,
-        0 0 20px #ff6347,
-        0 0 40px #ff0000;
-    }
+/* ===== TITULO QUEMADO ===== */
+.burn-title {
+  display: flex;
+  justify-content: center;
+  margin: 40px auto;
+  font-size: 3rem;
+  font-weight: bold;
+  position: relative;
+}
 
-    .smoke {
-      position: absolute;
-      top: -20px;
-      width: 40px;
-      height: 40px;
-      background: radial-gradient(circle, rgba(255,255,255,0.4) 10%, transparent 70%);
-      border-radius: 50%;
-      opacity: 0.6;
-      animation: riseSide 5s forwards ease-in-out;
-      pointer-events: none;
-    }
+.burn-title span {
+  margin: 0 4px;
+  text-shadow:
+    0 0 10px #ff4500,
+    0 0 20px #ff6347,
+    0 0 40px #ff0000;
+}
 
-    @keyframes riseSide {
-      0%   { transform: translate(0, 0) scale(0.8); opacity: 0.6; }
-      50%  { transform: translate(30px, -60px) scale(1.2); opacity: 0.4; }
-      100% { transform: translate(60px, -120px) scale(1.5); opacity: 0; }
-    }
+/* ===== HUMO ===== */
+.smoke {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: radial-gradient(circle, rgba(255,255,255,0.5) 10%, transparent 70%);
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: riseSide 5s forwards ease-in-out;
+  pointer-events: none;
+}
 
-    /* Botones del acordeón en rojo/naranja fosforescente */
-    .accordion-button {
-      background-color: #222;
-      color: #ff6347;
-      text-shadow: 0 0 5px #ff4500, 0 0 10px #ff6347;
-      transition: all 0.3s ease;
-    }
+@keyframes riseSide {
+  0% { transform: translate(0, 0) scale(0.8); opacity: 0.6; }
+  50% { transform: translate(30px, -60px) scale(1.2); opacity: 0.4; }
+  100% { transform: translate(60px, -120px) scale(1.5); opacity: 0; }
+}
 
-    .accordion-button.collapsed {
-      color: #aaa;
-      text-shadow: none;
-    }
+/* ===== ACCORDION ===== */
+.accordion-button {
+  background: #222;
+  color: #ff6347;
+  text-shadow: 0 0 5px #ff4500;
+}
 
-    .accordion-button:not(.collapsed) {
-      background-color: #000;
-      color: #ff6347;
-      box-shadow: 0 0 20px #ff4500, 0 0 40px #ff6347;
-    }
+.accordion-button:not(.collapsed) {
+  background: #000;
+  box-shadow: 0 0 20px #ff4500;
+}
 
-    /* Texto interno blanco fosforescente */
-    .accordion-body {
-      background-color: #111;
-      color: #fff;
-      font-weight: bold;
-      text-shadow: 
-        0 0 5px #fff,
-        0 0 10px #fff,
-        0 0 20px #fff,
-        0 0 40px #fff;
-      border-left: 2px solid #ff4500;
-      border-right: 2px solid #ff4500;
-    }
-    html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      overflow-x: hidden; /* ✅ Evita scroll lateral */
-    }
+.accordion-body {
+  background: #111;
+  color: #fff;
+  text-shadow: 0 0 10px #fff;
+}
 
-    body {
-      background-image: url('../img/fondo.png');
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
-      background-attachment: fixed;
-      padding-top: 160px; /* ✅ Espacio para navbar fija */
-    }
+/* ===== TITULOS LED ===== */
+h1 {
+  text-align: center;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 4rem;
+  background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
+  background-size: 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: ledRainbow 6s infinite;
+}
 
-    h1 {
-      text-align: center;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 4rem;
-      text-transform: uppercase;
-      background: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
-      background-size: 400%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: ledRainbow 6s ease-in-out infinite;
-    }
+@keyframes ledRainbow {
+  0% { background-position: 0% }
+  100% { background-position: 100% }
+}
 
-    @keyframes ledRainbow {
-      0%, 100% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-    }
+/* ===== CAROUSEL ===== */
+.carousel {
+  max-width: 800px;
+  margin: auto;
+}
 
-    a.navbar-brand {
-      font-size: 80px;
-      font-family: 'Arial Black', sans-serif;
-      text-transform: uppercase;
-      animation: rainbowGlow 2s infinite linear;
-      color: #fff;
-      text-shadow:
-        0 0 5px #fff, 0 0 10px #ff00ff, 0 0 20px #00ffff,
-        0 0 30px #ffff00, 0 0 40px #ff0000, 0 0 50px #00ff00,
-        0 0 60px #0000ff;
-    }
+.carousel-inner img {
+  max-height: 500px;
+  object-fit: cover;
+  border-radius: 10px;
+}
 
-    @keyframes rainbowGlow {
-      0% { text-shadow: 0 0 10px red; }
-      20% { text-shadow: 0 0 10px orange; }
-      40% { text-shadow: 0 0 10px yellow; }
-      60% { text-shadow: 0 0 10px green; }
-      80% { text-shadow: 0 0 10px blue; }
-      100% { text-shadow: 0 0 10px violet; }
-    }
+/* ===== FOOTER ===== */
+.footer-vertical {
+  background: #000;
+  padding: 20px;
+  text-align: center;
+}
 
-    .carousel {
-      width: 100%;
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 0 10px;
-      box-sizing: border-box;
-    }
+.numeros-verticales span {
+  display: block;
+  font-size: 1.3rem;
+  text-shadow: 0 0 10px #fff;
+}
 
-    .carousel-inner img {
-      max-height: 500px;
-      object-fit: cover;
-      border-radius: 10px;
-    }
-
-    h5 {
-      background-color: rgba(0,0,0,0.5);
-      display: inline-block;
-      padding: 5px 10px;
-      border-radius: 5px;
-      color: white;
-    }
-
-    .footer-vertical {
-      background-color: #000;
-      padding: 20px;
-      text-align: center;
-      font-family: 'Orbitron', sans-serif;
-    }
-
-    .numeros-verticales {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-
-    .numeros-verticales span {
-      font-size: 1.5em;
-      color: #ffffff;
-      text-shadow: 0 0 10px #fff, 0 0 20px #fff;
-      margin: 5px 0;
-    }
-
-    .texto-footer {
-      color: #ccc;
-      font-size: 0.9em;
-    }
-
-    @media (max-width: 576px) {
-      a.navbar-brand {
-        font-size: 36px;
-        display: flex;
-        align-items: center;
-      }
-
-      .navbar-brand img {
-        width: 60px;
-        height: auto;
-        margin-right: 10px;
-      }
-
-      .carousel-inner img {
-        max-height: 250px;
-      }
-
-      h1 {
-        font-size: 2.2rem;
-      }
-
-      h5 {
-        font-size: 1em;
-        padding: 3px 6px;
-      }
-
-      .numeros-verticales span {
-        font-size: 1.2em;
-      }
-
-      .texto-footer {
-        font-size: 0.8em;
-      }
-
-      .carousel {
-        margin: 20px auto;
-      }
-    }
-  </style>
+/* ===== RESPONSIVE ===== */
+@media (max-width: 576px) {
+  h1 { font-size: 2.2rem; }
+  .carousel-inner img { max-height: 250px; }
+}
+</style>
 </head>
 
 <body>
 
 <!-- NAVBAR -->
 <nav class="navbar navbar-dark bg-dark fixed-top">
-  <div class="container-fluid d-flex justify-content-between align-items-center">
-    <a class="navbar-brand text-white" href="#">
-      <img src="../img/J.png" alt="Logo" width="100" class="d-inline-block align-text-top" />
-      JBurger Ah 54B
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src="../img/J.png" width="80"> JBurger Ah 54B
     </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="offcanvas offcanvas-end text-bg-dark" id="offcanvasNavbar">
-      <div class="offcanvas-header">
-        <h5>Menú</h5>
-        <button class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
-      </div>
-      <div class="offcanvas-body">
-        <ul class="navbar-nav">
-          <li><a class="nav-link active" href="#">Inicio</a></li>
-          <li><a class="nav-link" href="#">Menú</a></li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Más</a>
-            <ul class="dropdown-menu dropdown-menu-dark">
-              <li><a class="dropdown-item" href="#">Promociones</a></li>
-              <li><a class="dropdown-item" href="#">Ubicación</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Contáctanos</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </div>
   </div>
 </nav>
 
-  <div class="container d-flex justify-content-center mt-5">
-    <div class="accordion w-50" id="accordionExample">
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
-            Hamburguesa Clásica
-          </button>
-        </h2>
-        <div id="collapseOne" class="accordion-collapse collapse show">
-          <div class="accordion-body">
-            Pan suave, carne jugosa y queso derretido.
-          </div>
-        </div>
-      </div>
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
-            Hamburguesa BBQ
-          </button>
-        </h2>
-        <div id="collapseTwo" class="accordion-collapse collapse">
-          <div class="accordion-body">
-            Salsa barbacoa, cebolla caramelizada y tocino crujiente.
-          </div>
-        </div>
-      </div>
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
-            Hamburguesa al Carbón
-          </button>
-        </h2>
-        <div id="collapseThree" class="accordion-collapse collapse">
-          <div class="accordion-body">
-            Cocinada al carbón para un sabor ahumado único.
-          </div>
-        </div>
+<!-- ACCORDION -->
+<div class="container mt-5">
+  <div class="accordion">
+    <div class="accordion-item">
+      <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#a1">
+        Hamburguesa Clásica
+      </button>
+      <div id="a1" class="accordion-collapse collapse show">
+        <div class="accordion-body">Pan suave, carne jugosa y queso.</div>
       </div>
     </div>
   </div>
+</div>
 
- <script>
-  // Humo dinámico
-  const title = document.getElementById('burnTitle');
-  const letters = title.querySelectorAll('span');
+<!-- TITULO QUEMADO -->
+<div class="burn-title" id="burnTitle">
+  <span>🔥</span><span>H</span><span>A</span><span>M</span><span>B</span><span>U</span><span>R</span><span>G</span><span>U</span><span>E</span><span>S</span><span>A</span><span>S</span>
+  <span>&nbsp;</span>
+  <span>A</span><span>L</span>
+  <span>&nbsp;</span>
+  <span>C</span><span>A</span><span>R</span><span>B</span><span>Ó</span><span>N</span><span>🔥</span>
+</div>
 
-  function createSmoke(letter) {
-    const smoke = document.createElement('div');
-    smoke.classList.add('smoke');
-    smoke.style.left = (letter.offsetLeft + letter.offsetWidth/2 - 20) + 'px';
-    smoke.style.top = (letter.offsetTop - 20) + 'px';
-    const size = Math.random() * 20 + 30;
-    smoke.style.width = size + 'px';
-    smoke.style.height = size + 'px';
-    smoke.style.animationDuration = (3 + Math.random()*2) + 's';
-    title.appendChild(smoke);
-    setTimeout(() => smoke.remove(), 5000);
-  }
-
-  setInterval(() => {
-    letters.forEach(letter => {
-      createSmoke(letter);
-    });
-  }, 500);
-
-  // Rotación automática del acordeón cada 5 segundos
-  const items = document.querySelectorAll('.accordion-collapse');
-  let index = 0;
-  let lastAutoOpened = null; // guardamos cuál abrió el script
-
-  setInterval(() => {
-    const current = items[index];
-
-    // Si el panel no está abierto, lo abrimos
-    if (!current.classList.contains('show')) {
-      // Cerramos solo el último que abrió el script, no los que abrió el usuario
-      if (lastAutoOpened && lastAutoOpened.classList.contains('show')) {
-        new bootstrap.Collapse(lastAutoOpened, { toggle: false }).hide();
-      }
-
-      // Abrimos el nuevo y lo marcamos como "auto abierto"
-      new bootstrap.Collapse(current, { toggle: false }).show();
-      lastAutoOpened = current;
-    }
-
-    index = (index + 1) % items.length;
-  }, 5000);
-</script>
-
-
-<!-- CARRUSEL 1: HAMBURGUESAS -->
- <div class="burn-title" id="burnTitle">
-    <span>🔥</span>
-    <span>H</span>
-    <span>A</span>
-    <span>M</span>
-    <span>B</span>
-    <span>U</span>
-    <span>R</span>
-    <span>G</span>
-    <span>U</span>
-    <span>E</span>
-    <span>S</span>
-    <span>A</span>
-    <span>S</span>
-    <span> </span>
-    <span>A</span>
-    <span>L</span>
-    <span> </span>
-    <span>C</span>
-    <span>A</span>
-    <span>R</span>
-    <span>B</span>
-    <span>Ó</span>
-    <span>N</span>
-    <span>🔥</span>
+<!-- CAROUSELES -->
+<h1>BOTANAS!!!</h1>
+<div id="carouselBotanas" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="../img/B.webp" class="d-block w-100">
+    </div>
+    <div class="carousel-item">
+      <img src="../img/B.webp" class="d-block w-100">
+    </div>
   </div>
-<main>
-  <div id="carouselHamburguesas" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carouselHamburguesas" data-bs-slide-to="0" class="active"></button>
-      <button type="button" data-bs-target="#carouselHamburguesas" data-bs-slide-to="1"></button>
-      <button type="button" data-bs-target="#carouselHamburguesas" data-bs-slide-to="2"></button>
-      <button type="button" data-bs-target="#carouselHamburguesas" data-bs-slide-to="3"></button>
-    </div>
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img src="../img/HS.webp" class="d-block w-100" alt="">
-        <div class="carousel-caption">
-          <h5>Hamburguesa Sencilla</h5>
-          <p>Carne, Jamón, Piña, Queso...</p>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <img src="../img/HH.webp" class="d-block w-100" alt="">
-        <div class="carousel-caption">
-          <h5>Hamburguesa Hawaiana</h5>
-          <p>Carne, Jamón, Piña, Queso...</p>
-        </div>
-      </div>
-         <div class="carousel-item">
-      <img src="../img/HDC.webp" class="d-block w-100" alt="">
-      <div class="carousel-caption">
-        <h5>Doble Carne</h5>
-        <p>Carne extra, Lechuga, Queso...</p>
-      </div>
-    </div>
-                  <div class="carousel-item">
-      <img src="../img/F.png" class="d-block w-100" alt="">
-      <div class="carousel-caption">
-        <h5>Doble Carne</h5>
-        <p>Carne extra, Lechuga, Queso...</p>
-      </div>
-    </div>
-    </div>
+</div>
 
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselHamburguesas" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon"></span>
-    </button>
-
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselHamburguesas" data-bs-slide="next">
-      <span class="carousel-control-next-icon"></span>
-    </button>
+<h1>POSTRES!!!</h1>
+<div id="carouselPostres" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="../img/P.png" class="d-block w-100">
+    </div>
   </div>
-</main>
-<br>
-
-<!-- CARRUSEL 2: BOTANAS -->
-<h1>BOTANAS!!!</h1><br><br>
-<main>
-  <div id="carouselBotanas" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4500">
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carouselBotanas" data-bs-slide-to="0" class="active"></button>
-      <button type="button" data-bs-target="#carouselBotanas" data-bs-slide-to="1"></button>
-    </div>
-
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img src="../img/B.webp" class="d-block w-100" alt="">
-        <div class="carousel-caption">
-          <h5>Chicharrones Preparados</h5>
-        </div>
-      </div>
-
-      <div class="carousel-item">
-        <img src="../img/B.webp" class="d-block w-100" alt="">
-        <div class="carousel-caption">
-          <h5>Top Tops Preparados</h5>
-        </div>
-      </div>
-    </div>
-
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselBotanas" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon"></span>
-    </button>
-
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselBotanas" data-bs-slide="next">
-      <span class="carousel-control-next-icon"></span>
-    </button>
-  </div>
-</main>
-<br>
-
-<!-- CARRUSEL 3: POSTRES -->
-<h1>POSTRES!!!</h1><br><br>
-<main>
-  <div id="carouselPostres" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4250">
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carouselPostres" data-bs-slide-to="0" class="active"></button>
-    </div>
-
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img src="../img/P.png" class="d-block w-100" alt="">
-        <div class="carousel-caption">
-          <h5>Postres</h5>
-          <p>Arroz con leche, flan, gelatina...</p>
-        </div>
-      </div>
-    </div>
-
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselPostres" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon"></span>
-    </button>
-
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselPostres" data-bs-slide="next">
-      <span class="carousel-control-next-icon"></span>
-    </button>
-  </div>
-</main>
-<br>
+</div>
 
 <!-- FOOTER -->
-<footer class="footer-vertical">
-  <p class="texto-footer">&copy; 2025 JBurger. Todos los derechos reservados.</p>
+<footer class="footer-vertical mt-5">
+  <p>&copy; 2025 JBurger</p>
   <div class="numeros-verticales">
     <span>+52 1 644 479 4394</span>
     <span>02</span>
   </div>
 </footer>
 
+<!-- SCRIPTS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const title = document.getElementById("burnTitle");
+  const letters = title.querySelectorAll("span");
+
+  function createSmoke(letter) {
+    const smoke = document.createElement("div");
+    smoke.className = "smoke";
+
+    smoke.style.left = letter.offsetLeft + "px";
+    smoke.style.top = letter.offsetTop - 30 + "px";
+
+    const size = Math.random() * 20 + 30;
+    smoke.style.width = size + "px";
+    smoke.style.height = size + "px";
+
+    title.appendChild(smoke);
+    setTimeout(() => smoke.remove(), 5000);
+  }
+
+  setInterval(() => letters.forEach(createSmoke), 600);
+});
+</script>
+
 </body>
 </html>
-
