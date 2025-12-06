@@ -9,6 +9,82 @@
   <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Orbitron:wght@500&display=swap" rel="stylesheet" />
 
   <style>
+      body {
+      background: #111;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    /* Título quemado con humo */
+    .burn-title {
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+      font-size: 3rem;
+      font-weight: bold;
+      color: #fff;
+      position: relative;
+    }
+
+    .burn-title span {
+      position: relative;
+      margin: 0 5px;
+      text-shadow: 
+        0 0 10px #ff4500,
+        0 0 20px #ff6347,
+        0 0 40px #ff0000;
+    }
+
+    .smoke {
+      position: absolute;
+      top: -20px;
+      width: 40px;
+      height: 40px;
+      background: radial-gradient(circle, rgba(255,255,255,0.4) 10%, transparent 70%);
+      border-radius: 50%;
+      opacity: 0.6;
+      animation: riseSide 5s forwards ease-in-out;
+      pointer-events: none;
+    }
+
+    @keyframes riseSide {
+      0%   { transform: translate(0, 0) scale(0.8); opacity: 0.6; }
+      50%  { transform: translate(30px, -60px) scale(1.2); opacity: 0.4; }
+      100% { transform: translate(60px, -120px) scale(1.5); opacity: 0; }
+    }
+
+    /* Botones del acordeón en rojo/naranja fosforescente */
+    .accordion-button {
+      background-color: #222;
+      color: #ff6347;
+      text-shadow: 0 0 5px #ff4500, 0 0 10px #ff6347;
+      transition: all 0.3s ease;
+    }
+
+    .accordion-button.collapsed {
+      color: #aaa;
+      text-shadow: none;
+    }
+
+    .accordion-button:not(.collapsed) {
+      background-color: #000;
+      color: #ff6347;
+      box-shadow: 0 0 20px #ff4500, 0 0 40px #ff6347;
+    }
+
+    /* Texto interno blanco fosforescente */
+    .accordion-body {
+      background-color: #111;
+      color: #fff;
+      font-weight: bold;
+      text-shadow: 
+        0 0 5px #fff,
+        0 0 10px #fff,
+        0 0 20px #fff,
+        0 0 40px #fff;
+      border-left: 2px solid #ff4500;
+      border-right: 2px solid #ff4500;
+    }
     html, body {
       height: 100%;
       margin: 0;
@@ -190,8 +266,123 @@
   </div>
 </nav>
 
+  <div class="container d-flex justify-content-center mt-5">
+    <div class="accordion w-50" id="accordionExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+            Hamburguesa Clásica
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show">
+          <div class="accordion-body">
+            Pan suave, carne jugosa y queso derretido.
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+            Hamburguesa BBQ
+          </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse">
+          <div class="accordion-body">
+            Salsa barbacoa, cebolla caramelizada y tocino crujiente.
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+            Hamburguesa al Carbón
+          </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse">
+          <div class="accordion-body">
+            Cocinada al carbón para un sabor ahumado único.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ <script>
+  // Humo dinámico
+  const title = document.getElementById('burnTitle');
+  const letters = title.querySelectorAll('span');
+
+  function createSmoke(letter) {
+    const smoke = document.createElement('div');
+    smoke.classList.add('smoke');
+    smoke.style.left = (letter.offsetLeft + letter.offsetWidth/2 - 20) + 'px';
+    smoke.style.top = (letter.offsetTop - 20) + 'px';
+    const size = Math.random() * 20 + 30;
+    smoke.style.width = size + 'px';
+    smoke.style.height = size + 'px';
+    smoke.style.animationDuration = (3 + Math.random()*2) + 's';
+    title.appendChild(smoke);
+    setTimeout(() => smoke.remove(), 5000);
+  }
+
+  setInterval(() => {
+    letters.forEach(letter => {
+      createSmoke(letter);
+    });
+  }, 500);
+
+  // Rotación automática del acordeón cada 5 segundos
+  const items = document.querySelectorAll('.accordion-collapse');
+  let index = 0;
+  let lastAutoOpened = null; // guardamos cuál abrió el script
+
+  setInterval(() => {
+    const current = items[index];
+
+    // Si el panel no está abierto, lo abrimos
+    if (!current.classList.contains('show')) {
+      // Cerramos solo el último que abrió el script, no los que abrió el usuario
+      if (lastAutoOpened && lastAutoOpened.classList.contains('show')) {
+        new bootstrap.Collapse(lastAutoOpened, { toggle: false }).hide();
+      }
+
+      // Abrimos el nuevo y lo marcamos como "auto abierto"
+      new bootstrap.Collapse(current, { toggle: false }).show();
+      lastAutoOpened = current;
+    }
+
+    index = (index + 1) % items.length;
+  }, 5000);
+</script>
+
+
 <!-- CARRUSEL 1: HAMBURGUESAS -->
-<h1>HAMBURGUESAS AL CARBÓN!!!</h1>
+ <div class="burn-title" id="burnTitle">
+    <span>🔥</span>
+    <span>H</span>
+    <span>A</span>
+    <span>M</span>
+    <span>B</span>
+    <span>U</span>
+    <span>R</span>
+    <span>G</span>
+    <span>U</span>
+    <span>E</span>
+    <span>S</span>
+    <span>A</span>
+    <span>S</span>
+    <span> </span>
+    <span>A</span>
+    <span>L</span>
+    <span> </span>
+    <span>C</span>
+    <span>A</span>
+    <span>R</span>
+    <span>B</span>
+    <span>Ó</span>
+    <span>N</span>
+    <span>🔥</span>
+  </div>
 <main>
   <div id="carouselHamburguesas" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
     <div class="carousel-indicators">
