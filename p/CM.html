@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Control Maestro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { font-family: 'Lora', serif; background:#fdfdfd; margin:0; min-height:100vh; display:flex; flex-direction:column; }
+    h1 { font-size:3rem; font-weight:700; text-transform:uppercase; margin:24px 0; text-align:center; letter-spacing:2px; }
+
+    /* Layout: botones izquierda y panel imagen derecha */
+    .content { flex:1; display:grid; grid-template-columns:360px 1fr; gap:24px; align-items:start; padding:0 40px 24px; }
+
+    .buttons { display:flex; flex-direction:column; gap:16px; align-self:center; }
+    .btn-custom { font-size:1.2rem; padding:12px 24px; transition:transform .25s ease, box-shadow .25s ease; }
+    .btn-custom:hover { transform:translateX(18px) scale(1.04); box-shadow:0 10px 24px rgba(0,0,0,.18); }
+    .btn-active { background:#000 !important; color:#fff !important; border-color:#000 !important; }
+
+    /* Panel imagen ocupa toda la altura disponible (dejando espacio al título) */
+    .right-panel { position:relative; height:calc(100vh - 120px); overflow:hidden; border-radius:20px; background:#fafafa; }
+    .panel-image { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; visibility:hidden;
+                   transform:scale(1.02); transition:opacity .4s ease, transform .4s ease, visibility 0s linear .4s;
+                   pointer-events:none; border-radius:20px; }
+    .show-image { opacity:1; visibility:visible; transform:scale(1); transition:opacity .4s ease, transform .4s ease, visibility 0s; }
+
+    /* Imagen por defecto siempre visible para que no se vea vacío */
+    .default-image { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:20px; }
+  </style>
+</head>
+<body>
+  <h1>CONTROL MAESTRO</h1>
+
+  <div class="content">
+    <div class="buttons">
+      <button id="btnAbrir"   class="btn btn-outline-dark btn-custom" data-image="imgOpenClose">Abrir</button>
+      <button id="btnPedidos" class="btn btn-outline-dark btn-custom" data-image="imgPedidos">Pedidos</button>
+      <button id="btnDias"    class="btn btn-outline-dark btn-custom" data-image="imgDays">Días trabajados</button>
+      <button id="btnStats"   class="btn btn-outline-dark btn-custom" data-image="imgStats">📊 Estadísticas</button>
+    </div>
+
+    <div class="right-panel">
+      <!-- Imagen por defecto visible siempre -->
+      <img class="default-image" src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1200&auto=format&fit=crop" alt="Imagen por defecto"/>
+
+      <!-- Imágenes que aparecen al hover de cada botón -->
+      <img id="imgOpenClose" class="panel-image" src="https://images.unsplash.com/photo-1505236738410-7b9b3a0d0f3f?q=80&w=1600&auto=format&fit=crop" alt="Abrir/Cerrar"/>
+      <img id="imgPedidos"   class="panel-image" src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=1600&auto=format&fit=crop" alt="Pedidos"/>
+      <img id="imgDays"      class="panel-image" src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1600&auto=format&fit=crop" alt="Días trabajados"/>
+      <img id="imgStats"     class="panel-image" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1600&auto=format&fit=crop" alt="Estadísticas"/>
+    </div>
+  </div>
+
+  <script>
+    // Estado y registros en localStorage
+    function getState() {
+      return {
+        abierto: JSON.parse(localStorage.getItem('abierto') ?? 'false'),
+        inicioSesion: localStorage.getItem('inicioSesion'),
+        registros: JSON.parse(localStorage.getItem('registros') ?? '[]')
+      };
+    }
+    function setState({abierto, inicioSesion, registros}) {
+      if (abierto !== undefined) localStorage.setItem('abierto', JSON.stringify(abierto));
+      if (inicioSesion !== undefined) {
+        if (inicioSesion) localStorage.setItem('inicioSesion', inicioSesion);
+        else localStorage.removeItem('inicioSesion');
+      }
+      if (registros !== undefined) localStorage.setItem('registros', JSON.stringify(registros));
+    }
+
+    const btnAbrir   = document.getElementById('btnAbrir');
+    const btnPedidos = document.getElementById('btnPedidos');
+    const btnDias    = document.getElementById('btnDias');
+    const btnStats   = document.getElementById('btnStats');
+
+    const images = {
+      imgOpenClose: document.getElementById('imgOpenClose'),
+      imgPedidos:   document.getElementById('imgPedidos'),
+      imgDays:      document.getElementById('imgDays'),
+      imgStats:     document.getElementById('imgStats')
+    };
+
+    function hideAllImages() { Object.values(images).forEach(img => img.classList.remove('show-image')); }
+    function showImageById(id) { hideAllImages(); const img = images[id]; if (img) img.classList.add('show-image'); }
+
+    // Hover: muestra la imagen correspondiente
+    [btnAbrir, btnPedidos, btnDias, btnStats].forEach(btn => {
+      const imgId = btn.getAttribute('data-image');
+      btn.addEventListener('mouseenter', () => showImageById(imgId));
+      btn.addEventListener('mouseleave', hideAllImages);
+    });
+
+    // Inicializa el botón Abrir/Cerrar según estado persistente
+    (function initButton() {
+      const {abierto} = getState();
+      if (abierto) {
+        btnAbrir.textContent = 'Cerrar';
+        btnAbrir.classList.add('btn-active');
+      } else {
+        btnAbrir.textContent = 'Abrir';
+        btnAbrir.classList.remove('btn-active');
+      }
+    })();
+
+    // Abrir/Cerrar con alertas, sin redirección
+    btnAbrir.addEventListener('click', () => {
+      const now = new Date();
+      const s = getState();
+
+      if (!s.abierto) {
+        setState({abierto: true, inicioSesion: now.toISOString()});
+        btnAbrir.textContent = 'Cerrar';
+        btnAbrir.classList.add('btn-active');
+        alert('¡Ya abrimos!!');
+      } else {
+        setState({abierto: false});
+        btnAbrir.textContent = 'Abrir';
+        btnAbrir.classList.remove('btn-active');
+
+        if (s.inicioSesion) {
+          const inicio = new Date(s.inicioSesion);
+          const diffSeconds = Math.floor((now - inicio) / 1000);
+          const horas    = Math.floor(diffSeconds / 3600);
+          const minutos  = Math.floor((diffSeconds % 3600) / 60);
+          const segundos = diffSeconds % 60;
+          const duracion = `${horas}h ${minutos}m ${segundos}s`;
+
+          const nuevoRegistro = {
+            fecha: now.toLocaleDateString(),
+            apertura: inicio.toLocaleTimeString(),
+            cierre: now.toLocaleTimeString(),
+            duracion
+          };
+          const nuevos = [...s.registros, nuevoRegistro];
+          setState({registros: nuevos, inicioSesion: null});
+        }
+        alert('¡Ya cerramos!!');
+      }
+    });
+
+    // Redirecciones de otros botones (mantienen el estilo y comportamiento de imágenes al hover)
+    btnPedidos.addEventListener('click', () => window.location.href = 'pedidos.html');
+    btnDias.addEventListener('click',    () => window.location.href = 'DT.html');
+    btnStats.addEventListener('click',   () => window.location.href = 'estadisticas.html');
+  </script>
+</body>
+</html>
