@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Días trabajados</title>
+  <style>
+    body { font-family:'Arial', sans-serif; text-align:center; padding:40px; background:#fdfdfd; }
+    h1 { margin-bottom:16px; }
+    table { border-collapse:collapse; width:90%; margin:20px auto; }
+    th, td { border:1px solid #333; padding:8px; text-align:center; }
+    th { background:#000; color:#fff; }
+    .actions { margin-top:20px; display:flex; gap:12px; justify-content:center; }
+    .btn { padding:10px 16px; border:1px solid #333; background:#fff; cursor:pointer; }
+    .btn:hover { background:#000; color:#fff; }
+    .hint { color:#666; font-size:.95rem; }
+  </style>
+</head>
+<body>
+  <h1>📅 Registro de días trabajados</h1>
+  <p class="hint">Los registros se crean al presionar “Cerrar” en Control Maestro.</p>
+  <div id="tablaDias"></div>
+
+  <div class="actions">
+    <button class="btn" onclick="window.location.href='CM.html'">Volver al menú</button>
+    <button class="btn" id="btnRefrescar">Refrescar</button>
+    <button class="btn" id="btnBorrar">Borrar registros</button>
+  </div>
+
+  <script>
+    function safeParse(json, fallback) {
+      try { return JSON.parse(json); } catch { return fallback; }
+    }
+
+    function getRegistros() {
+      return safeParse(localStorage.getItem('registros') || '[]', []);
+    }
+
+    function renderTabla() {
+      const cont = document.getElementById('tablaDias');
+      const registros = getRegistros();
+
+      if (!registros.length) {
+        cont.innerHTML = "<h3>No hay registros aún</h3>";
+        return;
+      }
+
+      let html = "<table><tr><th>Fecha</th><th>Apertura</th><th>Cierre</th><th>Duración</th></tr>";
+      registros.forEach(r => {
+        html += `<tr>
+          <td>${r.fecha}</td>
+          <td>${r.apertura}</td>
+          <td>${r.cierre}</td>
+          <td>${r.duracion}</td>
+        </tr>`;
+      });
+      html += "</table>";
+      cont.innerHTML = html;
+    }
+
+    // Render al cargar
+    document.addEventListener('DOMContentLoaded', renderTabla);
+
+    // Botones utilitarios
+    document.getElementById('btnRefrescar').addEventListener('click', renderTabla);
+    document.getElementById('btnBorrar').addEventListener('click', () => {
+      if (confirm('¿Borrar todos los registros?')) {
+        localStorage.removeItem('registros');
+        renderTabla();
+      }
+    });
+  </script>
+</body>
+</html>
