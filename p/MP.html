@@ -278,10 +278,24 @@
     .offcanvas-logo {
       display: block;
       margin: 0 auto 12px auto;
-      width: clamp(80px, 40%, 180px);
-      max-width: 220px;
+      width: clamp(120px, 60%, 320px);
+      max-width: 320px;
       height: auto;
       opacity: 0.95;
+    }
+
+    /* OFFCANVAS BUTTONS - MAKE THEM BIG ALWAYS */
+    .offcanvas-body .btn-light,
+    .offcanvas-body .btn.w-75,
+    .offcanvas-body button[class*="btn"] {
+      width: 85% !important;
+      padding: 20px 30px !important;
+      font-size: 1.3rem !important;
+      font-weight: bold !important;
+      min-height: 55px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
     }
 
     @media (max-width: 576px) {
@@ -332,8 +346,8 @@
         right: 0;
         left: 0;
         border-left: none !important;
-        border-top: 6px solid #ff6347 !important;
-        box-shadow: 0 -6px 30px rgba(255,99,71,0.15) !important;
+        border-top: none !important;
+        box-shadow: 0 -6px 30px rgba(255,99,71,0.08) inset !important;
       }
 
       .offcanvas-custom .offcanvas-header {
@@ -350,17 +364,13 @@
       }
 
       .offcanvas-logo {
-        width: clamp(90px, 45%, 220px);
-        max-width: 220px;
+        width: 90% !important;
+        max-width: 360px !important;
         margin-bottom: 10px;
       }
 
       .accordion.w-50 {
         width: 100% !important;
-      }
-
-      .btn.w-75 {
-        width: 92% !important;
       }
 
       a.navbar-brand { font-size: 28px !important; }
