@@ -216,6 +216,74 @@
       font-size: 0.9em;
     }
 
+    /* Estado + acordeón container (desktop default: side-by-side) */
+    .estado-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 40px;
+      padding: 0 20px;
+    }
+    .estado {
+      font-family:'Courier New', monospace;
+      font-size:3rem;
+      font-weight:bold;
+      letter-spacing:4px;
+      text-transform:uppercase;
+      flex: 1;
+      text-align: center;
+    }
+    .open  { color:#2ecc71; text-shadow:0 0 10px rgba(46,204,113,.9), 0 0 20px rgba(46,204,113,.7); }
+    .close { color:#e74c3c; text-shadow:0 0 10px rgba(231,76,60,.9), 0 0 20px rgba(231,76,60,.7); }
+    .actions { margin-top:24px; display:flex; justify-content:center; gap:12px; }
+    .btn { padding:10px 16px; border:1px solid #fff; background:transparent; color:#fff; cursor:pointer; }
+    .btn:hover { background:#fff; color:#000; }
+
+    /* Offcanvas (menu lateral) styling */
+    .offcanvas-custom {
+      background: rgba(0, 0, 0, 0.25) !important;
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border-left: 5px solid #ff6347;
+      box-shadow: inset -5px 0 20px rgba(255, 99, 71, 0.4), -5px 0 20px rgba(255, 99, 71, 0.5);
+    }
+
+    .offcanvas-custom .offcanvas-header {
+      background: rgba(0, 0, 0, 0.25) !important;
+      backdrop-filter: blur(25px) !important;
+      -webkit-backdrop-filter: blur(25px) !important;
+      border-bottom: none;
+    }
+
+    .offcanvas-custom .offcanvas-body {
+      background: rgba(0,0,0,0.15) !important;
+      backdrop-filter: blur(20px) !important;
+      -webkit-backdrop-filter: blur(20px) !important;
+      padding-top: 8px;
+      padding-bottom: 12px;
+      /* center contents so the logo and buttons look balanced */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .offcanvas-backdrop.show {
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      background: rgba(0, 0, 0, 0.5) !important;
+    }
+
+    /* Make the offcanvas logo responsive but never take the whole width */
+    .offcanvas-logo {
+      display: block;
+      margin: 0 auto 12px auto;
+      width: clamp(80px, 40%, 180px);
+      max-width: 220px;
+      height: auto;
+      opacity: 0.95;
+    }
+
     @media (max-width: 576px) {
       a.navbar-brand {
         font-size: 36px;
@@ -274,11 +342,17 @@
 
       .offcanvas-custom .offcanvas-body {
         padding: 0.6rem 0.75rem;
+        /* ensure elements are centered in the mobile menu */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
       }
 
       .offcanvas-logo {
-        width: 60px;
-        margin-bottom: 8px;
+        width: clamp(90px, 45%, 220px);
+        max-width: 220px;
+        margin-bottom: 10px;
       }
 
       .accordion.w-50 {
@@ -295,44 +369,37 @@
       body { padding-top: 120px; }
 
       .carousel-inner img { max-height: 200px; }
+
+      /* ===== STACK estado (arriba) y accordion (abajo) en móvil =====
+         - en pantallas pequeñas la caja .estado-container deja de ser row y pasa a columna,
+           poniendo el mensaje de estado encima y el acordeón debajo.
+      */
+      .estado-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        padding: 0 12px;
+        margin-top: 20px;
+      }
+      .estado {
+        font-size: clamp(1.6rem, 6vw, 2.4rem);
+        text-align: center;
+        width: 100%;
+        order: 1;
+      }
+      .accordion.w-50 {
+        width: 100% !important;
+        order: 2;
+      }
+
+      /* slightly reduce heavy text-shadows on very small screens for readability */
+      .accordion-body {
+        text-shadow: none;
+        font-weight: 700;
+      }
     }
 
-    .offcanvas-custom {
-      background: rgba(0, 0, 0, 0.25) !important;
-      backdrop-filter: blur(25px);
-      -webkit-backdrop-filter: blur(25px);
-      border-left: 5px solid #ff6347;
-      box-shadow: inset -5px 0 20px rgba(255, 99, 71, 0.4), -5px 0 20px rgba(255, 99, 71, 0.5);
-    }
-
-    .offcanvas-custom .offcanvas-header {
-      background: rgba(0, 0, 0, 0.25) !important;
-      backdrop-filter: blur(25px) !important;
-      -webkit-backdrop-filter: blur(25px) !important;
-      border-bottom: none;
-    }
-
-    .offcanvas-custom .offcanvas-body {
-      background: rgba(0,0,0,0.15) !important;
-      backdrop-filter: blur(20px) !important;
-      -webkit-backdrop-filter: blur(20px) !important;
-      padding-top: 8px;
-      padding-bottom: 12px;
-    }
-
-    .offcanvas-backdrop.show {
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      background: rgba(0, 0, 0, 0.5) !important;
-    }
-
-    .offcanvas-logo {
-      display: block;
-      margin: 0 auto 12px auto;
-      width: 80px;
-      height: auto;
-      opacity: 0.95;
-    }
+    /* keep a reasonable logo for larger screens (already handled above with clamp) */
   </style>
 </head>
 
